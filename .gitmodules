@@ -1,0 +1,3 @@
+[submodule "app/static/fonts/roboto"]
+	path = app/static/fonts/roboto
+	url = https://github.com/google/roboto.git
