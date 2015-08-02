@@ -7,21 +7,18 @@
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <link href="" rel="icon" type="image/ico"/>
     <link href="../styles/main.css" rel="stylesheet"/>
-    <title>Photo Server</title>
+    <title>Geolocation Heat Map</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="../scripts/script.js"></script>
-<script type="text/javascript">
-	function getFile(){
-		document.getElementById("upfile").click();
-	}
-	function sub(obj){
-		var file = obj.value;
-		var fileName = file.split("\\");
-		document.getElementById("choose-file").innerHTML = fileName[fileName.length-1];
-		document.myForm.submit();
-		event.preventDefault();
-	}
+<script>
+	$(function() {
+		$("#toggle-button").click(function(){
+    	$("#sidebar-wrapper").animate({left:'+=200'}, 'fast');
+	});
+		$("#toggle-button").focusout(function(){
+		$("#sidebar-wrapper").animate({left:'-=200'}, 'fast');
+	});
+});
 </script>
 <body>
 	<div id="sidebar-wrapper">
@@ -46,14 +43,7 @@
         		<button id="toggle-button">
         		</button>
            	</div>
-           	<form id="upload" action="/import" method="POST" enctype="multipart/form-data">
-				<div id="choose-file" onclick="getFile()">Click to upload a file</div>	
-				<div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile" type="file" value="upload" onchange="sub(this)"/></div>
-			</form>
-           	<div id="upload-background">
-        		<button type="submit" id="upload-button" form="upload"></button>
-           	</div>
-           	<div id="name">Photo Server</div>
+           	<div id="name">Geolocation Heat Map</div>
         </div>
         <div id="header-wrapper">
             <div id="header">
@@ -73,9 +63,6 @@
     </div>
     <div id="viewbar-wrapper">
 		<div id="viewbar">
-			
-			Photo Name:
-			<span class="photo-name"></span>
 		</div>
 	</div>
 </body>
