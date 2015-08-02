@@ -19,6 +19,18 @@ var generateImagePreview = function(url){
 
 $(function() {
 	generateImageDiv("../images/shanghai.jpg");
+	generateImageDiv("../images/kindle.jpg");
+	generateImageDiv("../images/shanghai.jpg");
+	generateImageDiv("../images/kindle.jpg");
+	generateImageDiv("../images/shanghai.jpg");
+	generateImageDiv("../images/kindle.jpg");
+	generateImageDiv("../images/shanghai.jpg");
+	generateImageDiv("../images/kindle.jpg");
+	generateImageDiv("../images/shanghai.jpg");
+	generateImageDiv("../images/kindle.jpg");
+	generateImageDiv("../images/shanghai.jpg");
+	generateImageDiv("../images/kindle.jpg");
+	
 	$("#toggle-button").click(function(){
     	$("#sidebar-wrapper").animate({left:'+=200'}, 'fast');
 	});
@@ -31,16 +43,10 @@ window.onload = function(){
 	$(".card").click(function(){
 		if(viewToggle){
 			viewToggle = false;
-			$("#viewbar-wrapper").animate({right:'-=400'}, 'fast');	
-			
+			$("#viewbar-wrapper").animate({right:'-=400'}, 'fast');		
 		} else {
 			viewToggle = true;
     		$("#viewbar-wrapper").animate({right:'+=400'}, 'fast');
     	}
 	});
 }
-
-/*old = document.getElementById("content").innerHTML;
-		for(var i = 0; i < 5; i++){
-		var x = "<div style="width:200px">'
-		}*/

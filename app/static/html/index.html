@@ -5,7 +5,7 @@
     <meta content="" name="description"/>
     <meta content="William Zhang" name="author"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <link href="" rel="icon" type="image/ico"/>
+    <link href="../images/favicon.ico" rel="icon" type="image/ico"/>
     <link href="../styles/main.css" rel="stylesheet"/>
     <title>Photo Server</title>
 </head>
@@ -48,7 +48,7 @@
            	</div>
            	<form id="upload" action="/import" method="POST" enctype="multipart/form-data">
 				<div id="choose-file" onclick="getFile()">Click to upload a file</div>	
-				<div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile" type="file" value="upload" onchange="sub(this)"/></div>
+				<div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile" type="file" value="upload" onchange="sub(this)" multiple/></div>
 			</form>
            	<div id="upload-background">
         		<button type="submit" id="upload-button" form="upload"></button>
