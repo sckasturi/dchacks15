@@ -17,20 +17,38 @@ var generateImagePreview = function(url){
 	var oldParent = document.getElementById("viewbar");
 }
 
+var generateImageView = function(url){
+	var oldParent = document.getElementById("viewbar");
+	var newChild1 = document.createElement("img");
+	newChild1.setAttribute("src", url);
+	newChild1.classList.add("preview");
+	var newChild2 = document.createElement("div");
+	newChild2.innerHTML = "Photo: A Photo";
+	var newChild3 = document.createElement("div");
+	newChild3.innerHTML = "Date: 1/1/70";
+	oldParent.appendChild(newChild1);
+	oldParent.appendChild(newChild2);
+	oldParent.appendChild(newChild3);
+}
+
+var removeImageView = function(){
+	var oldParent = document.getElementById("viewbar");
+	oldParent.innerHTML = "";
+}
+
 $(function() {
-	generateImageDiv("../images/shanghai.jpg");
-	generateImageDiv("../images/kindle.jpg");
-	generateImageDiv("../images/shanghai.jpg");
-	generateImageDiv("../images/kindle.jpg");
-	generateImageDiv("../images/shanghai.jpg");
-	generateImageDiv("../images/kindle.jpg");
-	generateImageDiv("../images/shanghai.jpg");
-	generateImageDiv("../images/kindle.jpg");
-	generateImageDiv("../images/shanghai.jpg");
-	generateImageDiv("../images/kindle.jpg");
-	generateImageDiv("../images/shanghai.jpg");
-	generateImageDiv("../images/kindle.jpg");
-	
+	generateImageDiv("/static/images/shanghai.jpg");
+	generateImageDiv("/static/images/kindle.jpg");
+	generateImageDiv("/static/images/shanghai.jpg");
+	generateImageDiv("/static/images/kindle.jpg");
+	generateImageDiv("/static/images/shanghai.jpg");
+	generateImageDiv("/static/images/kindle.jpg");
+	generateImageDiv("/static/images/shanghai.jpg");
+	generateImageDiv("/static/images/kindle.jpg");
+	generateImageDiv("/static/images/shanghai.jpg");
+	generateImageDiv("/static/images/kindle.jpg");
+	generateImageDiv("/static/images/shanghai.jpg");
+	generateImageDiv("/static/images/kindle.jpg");
 	$("#toggle-button").click(function(){
     	$("#sidebar-wrapper").animate({left:'+=200'}, 'fast');
 	});
@@ -41,10 +59,13 @@ $(function() {
 
 window.onload = function(){
 	$(".card").click(function(){
+		
 		if(viewToggle){
+			generateImageView("/static/images/kindle.jpg");
 			viewToggle = false;
 			$("#viewbar-wrapper").animate({right:'-=400'}, 'fast');		
 		} else {
+			removeImageView();
 			viewToggle = true;
     		$("#viewbar-wrapper").animate({right:'+=400'}, 'fast');
     	}
