@@ -1,32 +1,41 @@
-import os
 from app import app
-from flask import Flask, request, redirect, url_for
-from werkzeug import secure_filename
+import base64
+from flask import request
+import exifread
+import sqlite3
+import hashlib
+import exif
+conn = sqlite3.connect("photo.db")
+c = conn.cursor()
+c.execute("CREATE TABLE IF NOT EXISTS photos (filename, sha, file, exif, lat, long)")
+conn.commit()
 
-UPLOAD_FOLDER = '/path/to/the/uploads'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+@app.route('/import', methods= ['POST']) 
+def import_objects():        
+        file = request.files['file']
+        print 'uploading file ' + file.filename
+	if file and allowed_file(file.filename):
+            content = file.read()
+	    exifdata = exif.get_exif_data(content)
+	    #tags = exifread.process_file(file)
+            #for tag in tags.keys():
+            #    if tag not in ('JPEGThumbnail', 'TIFFThumbnail', 'Filename', 'EXIF MakerNote'):
+            #        exif[tag] = tags[tag]
+            sha = hashlib.sha256(content).hexdigest()
+	    crdts = exif.get_lat_lon(exifdata)
+	    c.execute("INSERT INTO photos VALUES (file.filename, content, file, str(exifdata), crdts[0], crdts[1])")
+	    conn.commit()
+            return str(crdts)
+        else:
+            return "nope.js"
+	conn.close()
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+	
+@app.route('/index')
+def index():
+    return "hello world"
 
 def allowed_file(filename):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+           filename.rsplit('.', 1)[1] in ["jpg", "jpeg", "JPG"]
 
-@app.route('/file', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        file = request.files['file']
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form action="" method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
-'''
