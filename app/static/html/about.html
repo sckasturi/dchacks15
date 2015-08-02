@@ -7,21 +7,18 @@
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <link href="" rel="icon" type="image/ico"/>
     <link href="../styles/main.css" rel="stylesheet"/>
-    <title>Photo Server</title>
+    <title>About</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="../scripts/script.js"></script>
-<script type="text/javascript">
-	function getFile(){
-		document.getElementById("upfile").click();
-	}
-	function sub(obj){
-		var file = obj.value;
-		var fileName = file.split("\\");
-		document.getElementById("choose-file").innerHTML = fileName[fileName.length-1];
-		document.myForm.submit();
-		event.preventDefault();
-	}
+<script>
+	$(function() {
+		$("#toggle-button").click(function(){
+			$("#sidebar-wrapper").animate({left:'+=200'}, 'fast');
+		});
+		$("#toggle-button").focusout(function(){
+			$("#sidebar-wrapper").animate({left:'-=200'}, 'fast');
+		});
+	});
 </script>
 <body>
 	<div id="sidebar-wrapper">
@@ -46,14 +43,7 @@
         		<button id="toggle-button">
         		</button>
            	</div>
-           	<form id="upload" action="/import" method="POST" enctype="multipart/form-data">
-				<div id="choose-file" onclick="getFile()">Click to upload a file</div>	
-				<div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile" type="file" value="upload" onchange="sub(this)"/></div>
-			</form>
-           	<div id="upload-background">
-        		<button type="submit" id="upload-button" form="upload"></button>
-           	</div>
-           	<div id="name">Photo Server</div>
+           	<div id="name">About</div>
         </div>
         <div id="header-wrapper">
             <div id="header">
@@ -62,7 +52,16 @@
         </div>
         <div id="content-wrapper">
             <div id="content">
-                
+                <div style="margin-top:-150px; padding: 0 100px; text-align:left">
+					This web application was created at DCHacks 2015 in Tysons Corner, VA by William
+					Zhang and Srijay Kasturi. William developed the front end, while Srijay worked
+					on the back end. Many thanks go out to Cvent for hosting the event, as well as
+					the numerous sponsors for the event: Microsoft, Google, Nova Labs,
+					Pebble, Tessel, yext, Clarabridge, Dante, Sense 360, UGP, ID.me, FiscalNote,
+					DigitalOcean, GitHub, ClearanceJobs.com, Firebase, Add This, niyamit, CustomInk,
+					namecheap, Yahoo!, Drifty, WRG, and TrackMaven.
+                </div>
+                <img src="../images/dchacks.PNG" width=360 height=240 style="margin:15px" alt="DCHacks"/>
             </div>
         </div>
         <div id="footer-wrapper">
@@ -71,12 +70,5 @@
             </div>
         </div>
     </div>
-    <div id="viewbar-wrapper">
-		<div id="viewbar">
-			
-			Photo Name:
-			<span class="photo-name"></span>
-		</div>
-	</div>
 </body>
 </html>
