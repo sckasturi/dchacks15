@@ -11,6 +11,18 @@
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="../scripts/script.js"></script>
+<script type="text/javascript">
+ function getFile(){
+	document.getElementById("upfile").click();
+ }
+ function sub(obj){
+    var file = obj.value;
+    var fileName = file.split("\\");
+    document.getElementById("choose-file").innerHTML = fileName[fileName.length-1];
+    document.myForm.submit();
+    event.preventDefault();
+  }
+</script>
 <body>
 	<div id="sidebar-wrapper">
 		<div id="sidebar">
@@ -22,11 +34,14 @@
         		<button id="toggle-button">
         		</button>
            	</div>
-           	<div id="name">Photo Server</div>
+           	<form id="upload" action="/import" method="POST" enctype="multipart/form-data">
+				<div id="choose-file" onclick="getFile()">Click to upload a file</div>	
+				<div style='height: 0px;width: 0px; overflow:hidden;'><input id="upfile" type="file" value="upload" onchange="sub(this)"/></div>
+			</form>
            	<div id="upload-background">
-        		<button id="upload-button">
-        		</button>
+        		<button type="submit" id="upload-button" form="upload"></button>
            	</div>
+           	<div id="name">Photo Server</div>
         </div>
         <div id="header-wrapper">
             <div id="header">
